@@ -1,24 +1,35 @@
 # README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
 * Ruby version
+3.2.0
 
 * System dependencies
 
 * Configuration
 
 * Database creation
+```
+bin/rails db:create db:migrate
+```
 
-* Database initialization
+# Curl command examples
+## register user
+```
+curl -XPOST -i -H "Content-Type: application/json" -d '{ "token": "TOKEN_FROM_FirebaseAuth_HERE" }' http://localhost:3000/users
+#=> get JWT from Authorization Header
+```
 
-* How to run the test suite
+## sign in user
+```
+curl -XPOST -i -H "Content-Type: application/json"  -d '{ "token": "TOKEN_FROM_FirebaseAuth_HERE" }' http://localhost:3001/users/sign_in
+#=> get JWT from Authorization Header
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## check whether private data
+```
+curl -XGET -H "Authorization: Bearer TOKEN_FROM_devise-jwt_HERE" -H "Content-Type: application/json" http://localhost:3000/member-dat
+```
 
-* Deployment instructions
-
-* ...
+## logout
+```
+curl -XDELETE -i -H "Content-Type: application/json" -H "Authorization: Bearer TOKEN_FROM_devise-jwt_HERE" http://localhost:3000/users/sign_out
+```
