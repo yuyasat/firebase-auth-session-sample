@@ -33,10 +33,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     return render json: { message: 'Invalid token' }, status: :unauthorized unless decoded_token
 
     # set user params for create
-    params[:user] = {
-      email: decoded_token.dig(0, "email"),
-      idaas_uid: decoded_token.dig(0, "user_id"),
-      password: Rails.application.credentials.devise[:common_password]
-    }
+    params[:user] = { idaas_uid: decoded_token.dig(0, "user_id") }
   end
 end
